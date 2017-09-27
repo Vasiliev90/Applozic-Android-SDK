@@ -9,6 +9,8 @@ import android.widget.PopupWindow;
 
 import com.applozic.mobicomkit.uiwidgets.R;
 import com.applozic.mobicomkit.uiwidgets.conversation.activity.ConversationActivity;
+import com.applozic.mobicomkit.uiwidgets.conversation.activity.MobiComKitActivityInterface;
+import com.applozic.mobicomkit.uiwidgets.conversation.activity.MobicomLocationActivity;
 
 import java.util.List;
 
@@ -40,20 +42,20 @@ public class MultimediaOptionsGridView {
 
     public void executeMethod(String key) {
         if (key.equals(context.getResources().getString(R.string.location))) {
-            ((ConversationActivity) context).processLocation();
+            ((MobiComKitActivityInterface) context).processLocation();
         } else if (key.equals(context.getString(R.string.camera))) {
-            ((ConversationActivity) context).isTakePhoto(true);
-            ((ConversationActivity) context).processCameraAction();
+            ((MobiComKitActivityInterface) context).isTakePhoto(true);
+            ((MobiComKitActivityInterface) context).processCameraAction();
         } else if (key.equals(context.getString(R.string.file))) {
-            ((ConversationActivity) context).isAttachment(true);
-            ((ConversationActivity) context).processAttachment();
+            ((MobiComKitActivityInterface) context).isAttachment(true);
+            ((MobiComKitActivityInterface) context).processAttachment();
         } else if (key.equals(context.getString(R.string.audio))) {
-            ((ConversationActivity) context).showAudioRecordingDialog();
+            ((MobiComKitActivityInterface) context).showAudioRecordingDialog();
         } else if (key.equals(context.getString(R.string.video))) {
-            ((ConversationActivity) context).isTakePhoto(false);
-            ((ConversationActivity) context).processVideoRecording();
+            ((MobiComKitActivityInterface) context).isTakePhoto(false);
+            ((MobiComKitActivityInterface) context).processVideoRecording();
         } else if (key.equals(context.getString(R.string.contact))) {
-            ((ConversationActivity) context).processContact();
+            ((MobiComKitActivityInterface) context).processContact();
         } else if (key.equals(context.getString(R.string.contact))) {
             new ConversationUIService(context).sendPriceMessage();
         }

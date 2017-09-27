@@ -8,7 +8,7 @@ android {
         minSdkVersion 14
         targetSdkVersion 25
         versionCode 1
-        versionName "5.0"
+        versionName "4.99"
     }
     useLibrary 'org.apache.http.legacy'
     buildTypes {
@@ -41,8 +41,7 @@ dependencies {
     compile files('libs/org.eclipse.paho.client.mqttv3-1.0.2.jar')
     compile 'com.android.support:appcompat-v7:25.3.1'
     compile 'com.google.code.gson:gson:2.2.4'
-    compile project(':mobicommons') //Note: use this for customization
-    //compile 'com.applozic.mobiframework:mobicommons:5.0' //Note: use this in case customization is not required
+    compile project(':mobicommons')
 }
 
 /*
@@ -62,7 +61,7 @@ ext {
     artifact = 'mobicomkit'
 
     libraryDescription = 'Applozic Communication Chat/Messaging library'
-    libraryVersion = '5.0'
+    libraryVersion = '4.99'
 
     developerId = 'devashish'
     developerName = 'Applozic'

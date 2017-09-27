@@ -73,6 +73,7 @@ import com.applozic.mobicomkit.uiwidgets.R;
 import com.applozic.mobicomkit.uiwidgets.conversation.ConversationUIService;
 import com.applozic.mobicomkit.uiwidgets.conversation.MessageCommunicator;
 import com.applozic.mobicomkit.uiwidgets.conversation.MobiComKitBroadcastReceiver;
+import com.applozic.mobicomkit.uiwidgets.conversation.UIService;
 import com.applozic.mobicomkit.uiwidgets.conversation.fragment.AudioMessageFragment;
 import com.applozic.mobicomkit.uiwidgets.conversation.fragment.ConversationFragment;
 import com.applozic.mobicomkit.uiwidgets.conversation.fragment.MobiComQuickConversationFragment;
@@ -188,11 +189,13 @@ public class ConversationActivity extends AppCompatActivity implements MessageCo
         //Log.i(TAG, "BackStackEntryCount: " + supportFragmentManager.getBackStackEntryCount());
     }
 
-    public static Uri getCapturedImageUri() {
+
+    public Uri getCapturedImageUri() {
         return capturedImageUri;
     }
 
-    public static void setCapturedImageUri(Uri capturedImageUri) {
+
+    public  void setCapturedImageUri(Uri capturedImageUri) {
         ConversationActivity.capturedImageUri = capturedImageUri;
     }
 
@@ -741,6 +744,11 @@ public class ConversationActivity extends AppCompatActivity implements MessageCo
     }
 
     @Override
+    public void addFragments(FragmentActivity fragmentActivity, Fragment fragmentToAdd, String fragmentTag) {
+
+    }
+
+    @Override
     public void onBackPressed() {
         if (getSupportFragmentManager().getBackStackEntryCount() == 1) {
             try {
@@ -858,12 +866,22 @@ public class ConversationActivity extends AppCompatActivity implements MessageCo
         return contact;
     }
 
+    @Override
+    public Channel getmChannel() {
+        return null;
+    }
+
     public Channel getChannel() {
         return channel;
     }
 
     public Integer getConversationId() {
         return currentConversationId;
+    }
+
+    @Override
+    public String getScheduleId() {
+        return null;
     }
 
     public void showSnackBar(int resId) {
@@ -890,6 +908,14 @@ public class ConversationActivity extends AppCompatActivity implements MessageCo
 
     public File getFileObject() {
         return mediaFile;
+    }
+
+    @Override
+    public void sendAudioFile(String outputFIle) {
+        ConversationFragment  conversationFragments = (ConversationFragment) UIService.getFragmentByTag(this, ConversationUIService.CONVERSATION_FRAGMENT);
+        if(conversationFragments != null){
+            conversationFragments.sendMessage(Message.ContentType.AUDIO_MSG.getValue(), outputFIle);
+        }
     }
 
     public void showAudioRecordingDialog() {

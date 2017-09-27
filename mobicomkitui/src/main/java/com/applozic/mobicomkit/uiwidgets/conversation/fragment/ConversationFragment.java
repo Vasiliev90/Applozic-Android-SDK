@@ -167,7 +167,7 @@ public class ConversationFragment extends MobiComConversationFragment implements
 
     public void updateTitle() {
         //((ActionBarActivity) getActivity()).getSupportActionBar().setTitle(ApplozicApplication.TITLE);
-        super.updateTitle();
+//        super.updateTitle();
     }
 
     public void hideMultimediaOptionGrid() {

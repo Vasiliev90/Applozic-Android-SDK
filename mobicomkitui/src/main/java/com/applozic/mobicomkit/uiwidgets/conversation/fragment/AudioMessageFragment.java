@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.applozic.mobicomkit.api.attachment.FileClientService;
 import com.applozic.mobicomkit.uiwidgets.R;
 import com.applozic.mobicomkit.uiwidgets.conversation.ConversationUIService;
+import com.applozic.mobicomkit.uiwidgets.conversation.activity.MobiComKitActivityInterface;
 import com.applozic.mobicommons.commons.core.utils.Utils;
 
 import java.io.File;
@@ -36,12 +37,15 @@ public class AudioMessageFragment extends DialogFragment {
     private String outputFile = null;
     private int cnt;
     private boolean isRecordring;
+    ConversationUIService conversationUIService;
+
 
     public static AudioMessageFragment newInstance() {
 
         AudioMessageFragment f = new AudioMessageFragment();
         return f;
     }
+
 
 
     @Override
@@ -131,8 +135,7 @@ public class AudioMessageFragment extends DialogFragment {
                     Toast.makeText(getContext(), R.string.audio_recording_send_text, Toast.LENGTH_SHORT).show();
                     return;
                 }
-                ConversationUIService conversationUIService = new ConversationUIService(getActivity());
-                conversationUIService.sendAudioMessage(outputFile);
+                ((MobiComKitActivityInterface)getActivity()).sendAudioFile(outputFile);
                 AudioMessageFragment.this.dismiss();
 
             }

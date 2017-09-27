@@ -767,6 +767,7 @@ public class DetailedConversationAdapter extends ArrayAdapter<Message> {
                     loadImage.loadImage(LocationUtils.loadStaticMap(message.getMessage()), mapImageView);
                     messageTextView.setVisibility(View.GONE);
 
+
                     mapImageView.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {

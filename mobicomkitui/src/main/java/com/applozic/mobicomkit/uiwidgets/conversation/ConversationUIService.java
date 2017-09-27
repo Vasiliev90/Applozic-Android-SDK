@@ -66,6 +66,7 @@ import com.applozic.mobicommons.people.contact.Contact;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Map;
 
 
 public class ConversationUIService {
@@ -107,6 +108,7 @@ public class ConversationUIService {
     private TopicDetail topicDetailsParcelable;
     private Contact contact;
     private NotificationManager notificationManager;
+    private ConversationFragment conversationFragment;
 
     public ConversationUIService(FragmentActivity fragmentActivity) {
         this.fragmentActivity = fragmentActivity;
@@ -114,6 +116,14 @@ public class ConversationUIService {
         this.userPreference = MobiComUserPreference.getInstance(fragmentActivity);
         this.notificationManager = (NotificationManager) fragmentActivity.getSystemService(Context.NOTIFICATION_SERVICE);
         this.fileClientService = new FileClientService(fragmentActivity);
+    }
+
+    public ConversationUIService(FragmentActivity fragmentActivity, ConversationFragment conversationFragment) {
+        this.fragmentActivity = fragmentActivity;
+        this.baseContactService = new AppContactService(fragmentActivity);
+        this.userPreference = MobiComUserPreference.getInstance(fragmentActivity);
+        this.notificationManager  = (NotificationManager) fragmentActivity.getSystemService(Context.NOTIFICATION_SERVICE);
+        this.conversationFragment = conversationFragment;
     }
 
     public MobiComQuickConversationFragment getQuickConversationFragment() {
@@ -128,16 +138,18 @@ public class ConversationUIService {
     }
 
     public ConversationFragment getConversationFragment() {
-
-        ConversationFragment conversationFragment = (ConversationFragment) UIService.getFragmentByTag(fragmentActivity, CONVERSATION_FRAGMENT);
-
-        if (conversationFragment == null) {
-            Contact contact = ((ConversationActivity) fragmentActivity).getContact();
-            Channel channel = ((ConversationActivity) fragmentActivity).getChannel();
-            Integer conversationId = ((ConversationActivity) fragmentActivity).getConversationId();
-            conversationFragment = ConversationFragment.newInstance(contact, channel, conversationId, null);
-            ConversationActivity.addFragment(fragmentActivity, conversationFragment, CONVERSATION_FRAGMENT);
+        if (fragmentActivity instanceof ConversationActivity) {
+            conversationFragment = (ConversationFragment) UIService.getFragmentByTag(fragmentActivity, CONVERSATION_FRAGMENT);
         }
+
+        if (conversationFragment == null &&  fragmentActivity instanceof ConversationActivity ) {
+                Contact contact = ((ConversationActivity) fragmentActivity).getContact();
+                Channel channel = ((ConversationActivity) fragmentActivity).getChannel();
+                Integer conversationId = ((ConversationActivity) fragmentActivity).getConversationId();
+                conversationFragment = ConversationFragment.newInstance(contact, channel, conversationId, null);
+                ConversationActivity.addFragment(fragmentActivity, conversationFragment, CONVERSATION_FRAGMENT);
+        }
+
         return conversationFragment;
     }
 
@@ -199,13 +211,13 @@ public class ConversationUIService {
                 Uri selectedFileUri = (intent == null ? null : intent.getData());
                 File file = null;
                 if (selectedFileUri == null) {
-                    file = ((ConversationActivity) fragmentActivity).getFileObject();
-                    selectedFileUri = ((ConversationActivity) fragmentActivity).getCapturedImageUri();
+                    file = ((MobiComKitActivityInterface) fragmentActivity).getFileObject();
+                    selectedFileUri = ((MobiComKitActivityInterface) fragmentActivity).getCapturedImageUri();
                 }
 
                 if (selectedFileUri != null) {
-                    selectedFileUri = ((ConversationActivity) fragmentActivity).getCapturedImageUri();
-                    file = ((ConversationActivity) fragmentActivity).getFileObject();
+                    selectedFileUri = ((MobiComKitActivityInterface) fragmentActivity).getCapturedImageUri();
+                    file = ((MobiComKitActivityInterface) fragmentActivity).getFileObject();
                 }
                 MediaScannerConnection.scanFile(fragmentActivity,
                         new String[]{file.getAbsolutePath()}, null,
@@ -222,9 +234,9 @@ public class ConversationUIService {
             }
             if (requestCode == MultimediaOptionFragment.REQUEST_CODE_CAPTURE_VIDEO_ACTIVITY && resultCode == Activity.RESULT_OK) {
 
-                Uri selectedFilePath = ((ConversationActivity) fragmentActivity).getVideoFileUri();
+                Uri selectedFilePath = ((MobiComKitActivityInterface) fragmentActivity).getVideoFileUri();
 
-                File file = ((ConversationActivity) fragmentActivity).getFileObject();
+                File file = ((MobiComKitActivityInterface) fragmentActivity).getFileObject();
 
                 if (!(file != null && file.exists())) {
                     FileUtils.getLastModifiedFile(Environment.getExternalStorageDirectory().getAbsolutePath() + "/DCIM/Camera/").renameTo(file);
@@ -595,7 +607,7 @@ public class ConversationUIService {
 
     public void updateChannelSync() {
         if (BroadcastService.isChannelInfo()) {
-            ((ChannelInfoActivity) fragmentActivity).updateChannelList();
+            //((ChannelInfoActivity) fragmentActivity).updateChannelList();
         }
         if (BroadcastService.isIndividual()) {
             getConversationFragment().updateChannelTitleAndSubTitle();
@@ -909,6 +921,7 @@ public class ConversationUIService {
     public void sendLocation(String position) {
         getConversationFragment().sendMessage(position, Message.ContentType.LOCATION.getValue());
     }
+
 
     public void processLoadUsers(boolean isRegisteredUserCall, final Message message, final String messageContent, int totalRegisteredUsers, int totalOnlineUser) {
 
