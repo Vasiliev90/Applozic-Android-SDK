@@ -90,12 +90,12 @@ public class AlCustomizationSettings extends JsonMarker {
     private String themeColorPrimary;
     private String themeColorPrimaryDark;
     private String editTextHintText = "Write a Message..";
-    private boolean replyOption = true;
+    private boolean replyOption = false;
     private String replyMessageLayoutSentMessageBackground = "#C0C0C0";
     private String replyMessageLayoutReceivedMessageBackground = "#F5F5F5";
     private boolean groupInfoScreenVisible = true;
-    private boolean forwardOption = true;
-    private boolean recordButton = true;
+    private boolean forwardOption = false;
+    private boolean recordButton = false;
 
     private boolean launchChatFromProfilePicOrName;
 
