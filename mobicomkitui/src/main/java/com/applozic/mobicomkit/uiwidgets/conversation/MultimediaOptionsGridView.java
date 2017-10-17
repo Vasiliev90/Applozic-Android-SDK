@@ -43,6 +43,8 @@ public class MultimediaOptionsGridView {
     public void executeMethod(String key) {
         if (key.equals(context.getResources().getString(R.string.location))) {
             ((MobiComKitActivityInterface) context).processLocation();
+        } else if (key.equals(context.getString(R.string.money))) {
+            ((MobiComKitActivityInterface) context).processSendMoneyAction();
         } else if (key.equals(context.getString(R.string.camera))) {
             ((MobiComKitActivityInterface) context).isTakePhoto(true);
             ((MobiComKitActivityInterface) context).processCameraAction();

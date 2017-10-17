@@ -144,6 +144,7 @@
     <string name="share_contact">Share Contact</string>
     <string name="attach_price">Attach price</string>
     <string name="location">:location</string>
+    <string name="money">:money</string>
     <string name="file">:file</string>
     <string name="audio">:audio</string>
     <string name="camera">:camera</string>

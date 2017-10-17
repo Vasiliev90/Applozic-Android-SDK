@@ -662,6 +662,11 @@ public class ConversationActivity extends AppCompatActivity implements MessageCo
     }
 
     @Override
+    public void processSendMoneyAction() {
+
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long

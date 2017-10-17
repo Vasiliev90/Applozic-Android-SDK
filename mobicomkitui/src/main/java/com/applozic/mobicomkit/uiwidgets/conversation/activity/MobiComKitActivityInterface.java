@@ -46,6 +46,8 @@ public interface MobiComKitActivityInterface {
 
     void processLocation();
 
+    void processSendMoneyAction();
+
     void processVideoRecording();
 
     void isTakePhoto(boolean isTakePhoto);
