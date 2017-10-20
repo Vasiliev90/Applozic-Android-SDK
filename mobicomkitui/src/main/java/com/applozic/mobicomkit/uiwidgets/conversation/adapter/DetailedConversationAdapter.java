@@ -1034,6 +1034,7 @@ public class DetailedConversationAdapter extends ArrayAdapter<Message> {
         try {
             final String mimeType = FileUtils.getMimeType(smListItem.getFilePaths().get(0));
             if (mimeType != null) {
+                ((MobiComKitActivityInterface) context).openExternalWindow();
                 if (mimeType.startsWith("image")) {
                     Intent intent = new Intent(context, FullScreenImageActivity.class);
                     intent.putExtra(MobiComKitConstants.MESSAGE_JSON_INTENT, GsonUtils.getJsonFromObject(smListItem, Message.class));

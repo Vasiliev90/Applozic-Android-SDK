@@ -80,4 +80,5 @@ public interface MobiComKitActivityInterface {
 
     void sendAudioFile(String outputFIle);
 
+    void openExternalWindow();
 }

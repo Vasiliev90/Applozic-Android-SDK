@@ -923,6 +923,11 @@ public class ConversationActivity extends AppCompatActivity implements MessageCo
         }
     }
 
+    @Override
+    public void openExternalWindow() {
+
+    }
+
     public void showAudioRecordingDialog() {
 
         if (Utils.hasMarshmallow() && PermissionsUtils.checkSelfPermissionForAudioRecording(this)) {
